@@ -36,11 +36,13 @@ public:
     }
 
     void gameBoard(const string &playerName) {
-        system("cls");
+       // system("cls");
+       clearScreenWithoutFlicker();
+
 
         cout << playerName << "'s Score: " << playerScore << "\n";
 
-        for (int i = 0; i < width + 2; i++) 
+        for (int i = 0; i < width + 2; i++)
             cout << "-";
         cout << "\n";
 
@@ -71,6 +73,8 @@ public:
 
         for (int i = 0; i < width + 2; i++) cout << "-";
         cout << "\n";
+
+        cout.flush();
     }
 
     void processInput() {
@@ -81,17 +85,17 @@ public:
                 key = _getch();    // read real arrow code
 
                 switch (key) {
-                case 75: if (dir != RIGHT) 
+                case 75: if (dir != RIGHT)
                             dir = LEFT;
                         break;
-                case 77: if (dir != LEFT)  
-                            dir = RIGHT; 
+                case 77: if (dir != LEFT)
+                            dir = RIGHT;
                         break;
-                case 72: if (dir != DOWN)  
-                            dir = UP; 
+                case 72: if (dir != DOWN)
+                            dir = UP;
                         break;
-                case 80: if (dir != UP)    
-                            dir = DOWN; 
+                case 80: if (dir != UP)
+                            dir = DOWN;
                         break;
                 }
             }
@@ -163,6 +167,13 @@ public:
             default: return 100;
         }
     }
+
+    void clearScreenWithoutFlicker() {
+    COORD cursorPosition;
+    cursorPosition.X = 0;
+    cursorPosition.Y = 0;
+    SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), cursorPosition);
+}
 };
 
 int main() {
